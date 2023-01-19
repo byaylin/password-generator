@@ -1,60 +1,56 @@
 // Assignment code here
-
-
-// Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXY";
+var lowerCase= "abcdefghijklmnopqrstuvwyxz";
+var numbers= "0123456789";
+var specialCharacters= "!@#$%^&*()_+=\|{}[];:,><./?`~";
 
+var randomPass= "";
+var newPass = "";
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
-
+  passwordText.value = newPass;
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-// Assignment code here
-var lowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-var upperCase =["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-var numbers = ["0","1","2","3","4", "5","6","7","8","9"];
-var specialCharacters = ["!", "@","#","$","%","^","&","*","(",")","-","+","=","_","`","{","}","[","]"]; 
-// Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password
-}
 
 
 function generatePassword() {
-  var choices = [];
-  var pwLength = window.prompt("Enter length of password, must be between 8 and 128 characters")
-  if (confirm("Would you like to use uppercase letters?")){
-    choices.concat(upperCase);
+  var pwLength = window.prompt("Enter length of password, must be between 8 and 128 characters");
+  if ((pwLength < 8) || (pwLength > 128)){
+    alert("Please choose a number between 8 and 128");
+
+    return;
   }
-  if (confirm("Would you like to use lowercase letters?")) {
-    choices.concat(lowerCase)
-  }
-  if (confirm("Would you like to use special characters?")) {
-    choices.concat(specialCharacters)
-  }
-  if (!upperCase && !lowerCase && !numbers && !specialCharacters) {
-  window.prompt("Please choose at least one set of characters")
-  }
-  var newPw = "";
-  for (i = 0; i < pwLength; i ++){
-  newPw += choices[Math.floor(Math.random()*choices.length)]
- }
+  //special character
+  var specialChars = confirm("Would you like to use special characters?")
+  if (specialChars === true){
+  randomPass = randomPass + specialCharacters
+  console.log(randomPass)
 }
-document.getElementById("password").value = password
-
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+// uppercase letters
+var capital= confirm("Would you like to use uppercase letters?")
+if (capital === true){
+  randomPass = randomPass + upperCase
+  console.log(randomPass)
+}
+//lowercase letter
+var lower = window.confirm("Would you like to use lowercase letters?")
+if (lower === true){
+  randomPass = randomPass + lowerCase
+  console.log(randomPass)
+}
+//numeric value
+var num = window.confirm("Would you like to include numbers?")
+if (num===true){
+  randomPass = randomPass + numbers
+  console.log(randomPass)
+}
+for (let i = 0; i < pwLength; i++){
+  newPass = newPass + randomPass.charAt(Math.floor(Math.random() * randomPass.length))
+}
+}
